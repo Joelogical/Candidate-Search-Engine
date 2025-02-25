@@ -5,6 +5,7 @@ import { GithubUser } from "../types/github";
 interface CandidateDisplayProps {
   onSaveCandidate: (candidate: GithubUser) => void;
   savedCandidates: GithubUser[];
+  searchResults: GithubUser[];
 }
 
 const CandidateDisplay = ({
