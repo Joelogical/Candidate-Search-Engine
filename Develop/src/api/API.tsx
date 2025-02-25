@@ -1,3 +1,4 @@
+// Use environment variable
 const GITHUB_TOKEN =
   "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";
 
