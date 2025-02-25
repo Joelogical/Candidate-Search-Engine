@@ -1,6 +1,5 @@
 // Use environment variable
-const GITHUB_TOKEN =
-  "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";
+const GITHUB_TOKEN = "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"; // Replace with the token you just generated
 
 export const searchGithub = async (query: string) => {
   try {
@@ -25,18 +24,25 @@ export const searchGithub = async (query: string) => {
 
 export const searchGithubUser = async (username: string) => {
   try {
+    console.log("Making API request for user:", username);
     const response = await fetch(`https://api.github.com/users/${username}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
         Accept: "application/vnd.github.v3+json",
       },
     });
+    console.log("API Response status:", response.status);
+
     const data = await response.json();
+    console.log("API Response data:", data);
+
     if (!response.ok) {
-      throw new Error("invalid API response, check the network tab");
+      console.error("API Error:", data.message);
+      throw new Error(data.message || "invalid API response");
     }
     return data;
   } catch (err) {
+    console.error("API Call failed:", err);
     return {};
   }
 };

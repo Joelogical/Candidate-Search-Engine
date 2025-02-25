@@ -5,7 +5,6 @@ import { GithubUser } from "../types/github";
 interface CandidateDisplayProps {
   onSaveCandidate: (candidate: GithubUser) => void;
   savedCandidates: GithubUser[];
-  searchResults: GithubUser[];
 }
 
 const CandidateDisplay = ({
@@ -16,6 +15,7 @@ const CandidateDisplay = ({
   const [noMoreCandidates, setNoMoreCandidates] = useState(false);
 
   const loadNextCandidate = async () => {
+    console.log("Loading next candidate...");
     const usernames = ["octocat", "defunkt", "mojombo", "pjhyett"];
     if (savedCandidates.length >= usernames.length) {
       setNoMoreCandidates(true);
@@ -23,13 +23,23 @@ const CandidateDisplay = ({
       return;
     }
 
-    const nextUser = await searchGithubUser(
-      usernames[savedCandidates.length % usernames.length]
-    );
-    setCandidate(nextUser);
+    try {
+      console.log(
+        "Fetching user:",
+        usernames[savedCandidates.length % usernames.length]
+      );
+      const nextUser = await searchGithubUser(
+        usernames[savedCandidates.length % usernames.length]
+      );
+      console.log("Received user data:", nextUser);
+      setCandidate(nextUser);
+    } catch (error) {
+      console.error("Error loading candidate:", error);
+    }
   };
 
   useEffect(() => {
+    console.log("CandidateDisplay mounted");
     loadNextCandidate();
   }, []);
 
