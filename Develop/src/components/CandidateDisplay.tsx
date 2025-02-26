@@ -18,7 +18,7 @@ const CandidateDisplay = ({
 
   const loadNextCandidate = async () => {
     console.log("Loading next candidate...");
-    const usernames = ["octocat", "defunkt", "mojombo", "pjhyett"];
+    const usernames: string[] = ["octocat", "defunkt", "mojombo", "pjhyett"];
     if (savedCandidates.length >= usernames.length) {
       setNoMoreCandidates(true);
       setCandidate(null);
@@ -27,13 +27,9 @@ const CandidateDisplay = ({
 
     try {
       setLoading(true);
-      console.log(
-        "Fetching user:",
-        usernames[savedCandidates.length % usernames.length]
-      );
-      const nextUser = await searchGithubUser(
-        usernames[savedCandidates.length % usernames.length]
-      );
+      const nextUsername = usernames[savedCandidates.length % usernames.length];
+      console.log("Fetching user:", nextUsername);
+      const nextUser = await searchGithubUser(nextUsername);
       console.log("Received user data:", nextUser);
       setCandidate(nextUser);
     } catch (error) {
@@ -45,18 +41,18 @@ const CandidateDisplay = ({
 
   useEffect(() => {
     console.log("CandidateDisplay mounted");
-    loadNextCandidate();
+    void loadNextCandidate();
   }, []);
 
   const handleSaveCandidate = () => {
     if (candidate) {
       onSaveCandidate(candidate);
-      loadNextCandidate();
+      void loadNextCandidate();
     }
   };
 
   const handleSkipCandidate = () => {
-    loadNextCandidate();
+    void loadNextCandidate();
   };
 
   return (
