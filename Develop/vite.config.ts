@@ -7,11 +7,11 @@ export default defineConfig({
   plugins: [react()],
   base: "/",
   server: {
-    port: 5173,
+    port: Number(process.env.PORT) || 5173,
     host: true,
   },
   preview: {
-    port: 5173,
+    port: Number(process.env.PORT) || 5173,
     host: true,
     cors: true,
     headers: {
