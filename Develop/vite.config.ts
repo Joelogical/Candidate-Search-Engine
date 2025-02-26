@@ -10,6 +10,15 @@ export default defineConfig({
     port: 5173,
     host: true,
   },
+  preview: {
+    port: 5173,
+    host: true,
+    cors: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    allowedHosts: ["candidate-search-engine.onrender.com", "localhost"],
+  },
   build: {
     outDir: "dist",
     assetsDir: "assets",
