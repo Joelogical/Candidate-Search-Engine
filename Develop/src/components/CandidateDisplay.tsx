@@ -11,8 +11,10 @@ const CandidateDisplay = ({
   onSaveCandidate,
   savedCandidates,
 }: CandidateDisplayProps) => {
+  console.log("CandidateDisplay mounting");
   const [candidate, setCandidate] = useState<GithubUser | null>(null);
   const [noMoreCandidates, setNoMoreCandidates] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const loadNextCandidate = async () => {
     console.log("Loading next candidate...");
@@ -24,6 +26,7 @@ const CandidateDisplay = ({
     }
 
     try {
+      setLoading(true);
       console.log(
         "Fetching user:",
         usernames[savedCandidates.length % usernames.length]
@@ -35,6 +38,8 @@ const CandidateDisplay = ({
       setCandidate(nextUser);
     } catch (error) {
       console.error("Error loading candidate:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,7 +61,9 @@ const CandidateDisplay = ({
 
   return (
     <div>
-      {noMoreCandidates ? (
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : noMoreCandidates ? (
         <h2>No more candidates available to review!</h2>
       ) : (
         candidate && (

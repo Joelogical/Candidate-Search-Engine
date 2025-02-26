@@ -1,12 +1,27 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
+  console.log("Nav mounting");
+
   return (
     <nav style={{ padding: "1rem", background: "#eee" }}>
-      <Link to="/" style={{ marginRight: "1rem" }}>
+      <NavLink
+        to="/"
+        style={({ isActive }) => ({
+          marginRight: "1rem",
+          fontWeight: isActive ? "bold" : "normal",
+        })}
+      >
         Search
-      </Link>
-      <Link to="/SavedCandidates">Saved Candidates</Link>
+      </NavLink>
+      <NavLink
+        to="/saved"
+        style={({ isActive }) => ({
+          fontWeight: isActive ? "bold" : "normal",
+        })}
+      >
+        Saved Candidates
+      </NavLink>
     </nav>
   );
 };

@@ -1,12 +1,10 @@
 import { GithubUser } from "../types/github";
 
-const STORAGE_KEY = "savedCandidates";
-
 export const getSavedCandidates = (): GithubUser[] => {
-  const saved = localStorage.getItem(STORAGE_KEY);
+  const saved = localStorage.getItem("savedCandidates");
   return saved ? JSON.parse(saved) : [];
 };
 
-export const saveCandidates = (candidates: GithubUser[]): void => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(candidates));
+export const saveCandidates = (candidates: GithubUser[]) => {
+  localStorage.setItem("savedCandidates", JSON.stringify(candidates));
 }; 

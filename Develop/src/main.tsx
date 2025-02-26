@@ -2,11 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import App from "./App";
+import CandidateSearch from "./pages/CandidateSearch";
+import SavedCandidates from "./pages/SavedCandidates";
+import ErrorPage from "./pages/ErrorPage";
 
-import App from "./App.tsx";
-import CandidateSearch from "./pages/CandidateSearch.tsx";
-import SavedCandidates from "./pages/SavedCandidates.tsx";
-import ErrorPage from "./pages/ErrorPage.tsx";
+console.log("Script starting");
 
 const router = createBrowserRouter([
   {
@@ -26,8 +27,18 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+try {
+  const root = document.getElementById("root");
+  console.log("Root element found:", root);
+
+  if (root) {
+    ReactDOM.createRoot(root).render(
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
+    );
+    console.log("Render called");
+  }
+} catch (error) {
+  console.error("Error in main:", error);
+}

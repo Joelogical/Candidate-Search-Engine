@@ -1,13 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CandidateDisplay from "../components/CandidateDisplay";
 import { GithubUser } from "../types/github";
+import { getSavedCandidates, saveCandidates } from "../utils/storage";
 
 const CandidateSearch = () => {
+  console.log("CandidateSearch mounting");
   const [savedCandidates, setSavedCandidates] = useState<GithubUser[]>([]);
 
+  useEffect(() => {
+    setSavedCandidates(getSavedCandidates());
+  }, []);
+
   const handleSaveCandidate = (candidate: GithubUser) => {
-    setSavedCandidates([...savedCandidates, candidate]);
+    const newSaved = [...savedCandidates, candidate];
+    setSavedCandidates(newSaved);
+    saveCandidates(newSaved);
   };
 
   return (

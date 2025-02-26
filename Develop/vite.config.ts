@@ -5,13 +5,14 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   envDir: "./env",
   plugins: [react()],
+  base: "/",
   server: {
-    port: 10000,
+    port: 5173,
     host: true,
   },
-  preview: {
-    port: 10000,
-    host: true,
-    allowedHosts: ["candidate-search-engine.onrender.com"],
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+    sourcemap: true,
   },
 });
