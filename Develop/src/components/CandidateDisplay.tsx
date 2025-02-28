@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { searchGithubUser } from "../api/API";
+import { searchGithubUser, getHeaders } from "../api/API";
 import { GithubUser } from "../types/github";
 
 interface CandidateDisplayProps {
@@ -28,12 +28,14 @@ const CandidateDisplay = ({
     try {
       setLoading(true);
       const nextUsername = usernames[savedCandidates.length % usernames.length];
-      console.log("Fetching user:", nextUsername);
+      console.log("Attempting API call with headers:", getHeaders());
       const nextUser = await searchGithubUser(nextUsername);
-      console.log("Received user data:", nextUser);
+      if (Object.keys(nextUser).length === 0) {
+        console.error("API call returned empty user - likely auth failure");
+      }
       setCandidate(nextUser);
     } catch (error) {
-      console.error("Error loading candidate:", error);
+      console.error("Error in loadNextCandidate:", error);
     } finally {
       setLoading(false);
     }

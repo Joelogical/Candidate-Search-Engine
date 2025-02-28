@@ -16,16 +16,20 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
+        path: "",
         element: <CandidateSearch />,
       },
       {
-        path: "/SavedCandidates",
+        path: "saved",
         element: <SavedCandidates />,
       },
     ],
   },
-]);
+], {
+  future: {
+    v7_relativeSplatPath: true,
+  },
+});
 
 try {
   const root = document.getElementById("root");

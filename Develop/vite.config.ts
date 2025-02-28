@@ -9,11 +9,11 @@ declare const process: {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  envDir: "./env",
+  envDir: ".",
   plugins: [react()],
   base: "/",
   server: {
-    port: Number(process.env.PORT) || 5173,
+    port: 3000,
     host: true,
   },
   preview: {
