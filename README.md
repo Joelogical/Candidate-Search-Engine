@@ -59,7 +59,7 @@ This application streamlines the candidate search process by:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/candidate-search-engine.git
+git clone https://github.com/Joelogical/Candidate-Search-Engine.git
 cd candidate-search-engine
 ```
 
