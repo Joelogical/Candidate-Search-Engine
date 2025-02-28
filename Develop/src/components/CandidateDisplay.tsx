@@ -30,12 +30,16 @@ const CandidateDisplay = ({
       const nextUsername = usernames[savedCandidates.length % usernames.length];
       console.log("Attempting API call with headers:", getHeaders());
       const nextUser = await searchGithubUser(nextUsername);
-      if (!nextUser || Object.keys(nextUser as object).length === 0) {
+      if (!nextUser) {
         console.error("API call returned empty user - likely auth failure");
+        return;
       }
       setCandidate(nextUser);
-    } catch (error) {
-      console.error("Error in loadNextCandidate:", error);
+    } catch (err) {
+      console.error(
+        "Error in loadNextCandidate:",
+        err instanceof Error ? err.message : String(err)
+      );
     } finally {
       setLoading(false);
     }
