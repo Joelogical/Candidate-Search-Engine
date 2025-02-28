@@ -8,6 +8,7 @@ console.log("Token loaded:", GITHUB_TOKEN ? "Yes" : "No");
 export const getHeaders = () => ({
   Authorization: `Bearer ${GITHUB_TOKEN}`,
   Accept: "application/vnd.github.v3+json",
+  "X-GitHub-Api-Version": "2022-11-28",
 });
 
 export const searchGithub = async (): Promise<GithubUser[]> => {
