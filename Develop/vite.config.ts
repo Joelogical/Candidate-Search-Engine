@@ -17,8 +17,8 @@ export default defineConfig({
     host: true,
   },
   preview: {
-    port: 3000,
-    host: '0.0.0.0',
+    port: Number(process.env.PORT) || 5173,
+    host: true,
     cors: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
