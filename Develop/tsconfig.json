@@ -15,7 +15,6 @@
     "jsx": "react-jsx",
 
     /* React types */
-    "types": ["react", "react-dom"],
     "jsxImportSource": "react",
 
     /* Linting */

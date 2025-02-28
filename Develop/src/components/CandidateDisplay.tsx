@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { searchGithubUser, getHeaders } from "../api/API";
 import { GithubUser } from "../types/github";
 
@@ -16,7 +16,7 @@ const CandidateDisplay = ({
   const [noMoreCandidates, setNoMoreCandidates] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const loadNextCandidate = async () => {
+  const loadNextCandidate = useCallback(async () => {
     console.log("Loading next candidate...");
     const usernames: string[] = ["octocat", "defunkt", "mojombo", "pjhyett"];
     if (savedCandidates.length >= usernames.length) {
@@ -30,7 +30,7 @@ const CandidateDisplay = ({
       const nextUsername = usernames[savedCandidates.length % usernames.length];
       console.log("Attempting API call with headers:", getHeaders());
       const nextUser = await searchGithubUser(nextUsername);
-      if (Object.keys(nextUser).length === 0) {
+      if (!nextUser || Object.keys(nextUser as object).length === 0) {
         console.error("API call returned empty user - likely auth failure");
       }
       setCandidate(nextUser);
@@ -39,12 +39,12 @@ const CandidateDisplay = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [savedCandidates]);
 
   useEffect(() => {
     console.log("CandidateDisplay mounted");
     void loadNextCandidate();
-  }, []);
+  }, [loadNextCandidate]);
 
   const handleSaveCandidate = () => {
     if (candidate) {
